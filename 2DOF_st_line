@@ -1,3 +1,5 @@
+/* Program to draw square of length 10 */
+
 #include <avr/io.h>
 #include<stdlib.h>
 #include<avr/interrupt.h>
@@ -16,24 +18,63 @@ int val_a,val_b;
 void straight(float c,float d,float a,float b)
 {
   //float c=10,d=10;
-  ik(10,0);
+  ik(c,d);
   float X=a-c;
-  float sw=0.03;
-  float dist=sqrt(((a-c)*(a-c))+((b-d)*(b-d)));
-  int n=dist/sw;
-  float inc=(X/n);
-  float m=(b-d)/(a-c);
+  float sw=0.5;
+  int n=X/sw;
   int q=c;
-  for(int h=0;h<n;h++)
+  if(X==0)
   {
-    float x1=q+(h*inc);
-    float y1=m*(x1-c)+d;
-    Serial.println(x1);
-    Serial.println(y1);
-    ik(x1,y1);
-    _delay_ms(5);
+    float Y = b- d;
+    n = Y/sw;
+    if(n>0)
+    {
+     for(int h=0;h<n;h++)
+     {
+      float y1 = d + (h*sw);
+      Serial.println(c);
+      Serial.println(y1);
+      ik(c,y1);
+     }
+    }
+    else
+    {
+      for(int h=0;h>n;h--)
+      {
+        float y1 = d + (h*sw);
+        Serial.println(c);
+        Serial.println(y1);
+        ik(c,y1);
+      }
+    }
   }
-   
+  else
+  {
+    float m=(b-d)/(a-c);
+    if(n>0)
+    {
+      for(int h=0;h<n;h++)
+      {
+      float x1=q+(h*sw);
+      float y1=m*(x1-c)+d;
+      Serial.println(x1);
+      Serial.println(y1);
+      ik(x1,y1);
+      }
+    }
+    else
+    {
+      for(int h=0;h>n;h--)
+      {
+        float x1=q+(h*sw);
+        float y1=m*(x1-c)+d;
+        Serial.println(x1);
+        Serial.println(y1);
+        ik(x1,y1); 
+      }
+    }
+  }
+  ik(a,b);
 }
 void angle(float a,float b)
 {
@@ -218,7 +259,11 @@ int main(void)
   
   while (1)
   {
-    if(chkm==0) /// it is 0 when the conversion of coor to angle is done and given to servo
+    straight(10,0,10,10);
+    straight(10,10,20,10);
+    straight(20,10,20,0);
+    straight(20,0,10,0);
+    /*if(chkm==0) /// it is 0 when the conversion of coor to angle is done and given to servo
     {
       char str[]="\nEnter the coordinates: (x,y:)  \n";
       for(j=0;str[j]!='\0';j++)
@@ -228,7 +273,7 @@ int main(void)
       }
     }
     c=UART_receivechar();
-    add(c);
+    add(c);*/
   }
   
   return 0;
