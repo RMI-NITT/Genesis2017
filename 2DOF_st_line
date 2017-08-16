@@ -7,15 +7,37 @@
 int cnt=0,chkm=0,j;
 char a,c,ch;
 int i,k=0,a1o=0,a2o=0; 
-int param[2]={0,0}; 
+int param[4]={0,0,0,0}; 
 int p;
 int flag=0; 
-float l1=10,l2=10; 
+float l1=15,l2=15; 
 int val_a,val_b;
 
-
+void straight(float c,float d,float a,float b)
+{
+  //float c=10,d=10;
+  ik(10,0);
+  float X=a-c;
+  float sw=0.03;
+  float dist=sqrt(((a-c)*(a-c))+((b-d)*(b-d)));
+  int n=dist/sw;
+  float inc=(X/n);
+  float m=(b-d)/(a-c);
+  int q=c;
+  for(int h=0;h<n;h++)
+  {
+    float x1=q+(h*inc);
+    float y1=m*(x1-c)+d;
+    Serial.println(x1);
+    Serial.println(y1);
+    ik(x1,y1);
+    _delay_ms(5);
+  }
+   
+}
 void angle(float a,float b)
 {
+  a+=90;
   val_a=round((110+((422.0/180.0)*a))*(76.0/90.0)*(32.0/30.0));//PLEASE NOTE THE CORRECTION FACTORS!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
   val_b=round(110+((425.0/180.0)*b)*(75.0/90.0));
   OCR1A=val_a;
@@ -67,14 +89,14 @@ void sweep(int a1,int a2){
       }
     }
     angle(i,j);
-    _delay_ms(40);
+    _delay_ms(50);
   }
   a1o = a1;
   a2o = a2;
 }
 
 
-void ik(int a,int b)
+void ik(float a,float b)
 {    
   float A1=0,A2=0,cA2,sA2; 
   float u=0,l=0,m=0,n=0; 
@@ -147,9 +169,8 @@ void add(char a)
        param[k]=(param[k]*10)+(p-48); //ASCII TO DECIMAL       
     }
     else if(a==':')      
-    {
-                
-       ik(param[0],param[1]);
+    {       
+       straight(param[0],param[1],param[2],param[3]);
        for(i=0;i<3;i++)
          param[i]=0;
        k=0; 
@@ -213,4 +234,3 @@ int main(void)
   return 0;
   
 } /// end of main
-
