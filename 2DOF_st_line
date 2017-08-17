@@ -1,4 +1,4 @@
-/* Program to draw square of length 10 */
+/* Program to write RMI */
 
 #include <avr/io.h>
 #include<stdlib.h>
@@ -17,6 +17,10 @@ int val_a,val_b;
 
 void straight(float c,float d,float a,float b)
 {
+  c=2*c/3;
+  d=2*d/3;
+  a=2*a/3;
+  b=2*b/3;
   //float c=10,d=10;
   ik(c,d);
   float X=a-c;
@@ -259,10 +263,25 @@ int main(void)
   
   while (1)
   {
-    straight(10,0,10,10);
-    straight(10,10,20,10);
-    straight(20,10,20,0);
-    straight(20,0,10,0);
+    straight(0,12,0,12);
+    straight(0,12,0,24);
+    straight(0,24,6,24);
+    straight(6,24,6,18);
+    straight(6,18,0,18);
+    straight(0,18,6,12);
+    straight(6,12,9,12);
+    straight(9,12,9,24);
+    straight(9,24,15,18);
+    straight(15,18,21,24);
+    straight(21,24,21,12);
+    straight(21,12,24,12);
+    straight(24,12,30,12);
+    straight(30,12,27,12);
+    straight(27,12,27,24);
+    straight(27,24,24,24);
+    straight(24,24,30,24);
+    straight(30,24,24,24);
+    break;
     /*if(chkm==0) /// it is 0 when the conversion of coor to angle is done and given to servo
     {
       char str[]="\nEnter the coordinates: (x,y:)  \n";
